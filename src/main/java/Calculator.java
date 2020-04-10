@@ -16,10 +16,10 @@ public class Calculator {
         Integer bb= parse(b).orElseThrow(Exception::new);
 
         switch(op){
-            case "add": return Optional.of(aa+bb).orElseThrow(RuntimeException::new);
-            case "sub": return Optional.of(aa-bb).orElseThrow(RuntimeException::new);
-            case "mult": return Optional.of(aa*bb).orElseThrow(RuntimeException::new);
-            case "div": return division(aa,bb).orElseThrow(RuntimeException::new);
+            case "add": return aa+bb;
+            case "sub": return aa-bb;
+            case "mult": return aa*bb;
+            case "div": return division(aa,bb).orElseThrow(Exception::new);
 
         }
         return 0;
