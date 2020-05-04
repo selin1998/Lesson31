@@ -1,36 +1,47 @@
-import java.util.Optional;
+import java.util.function.BiFunction;
 
 public class Calculator {
 
-    public Optional<Integer> parse(String s){
+    private int toInt(String orig) {
+        return Integer.parseInt(orig);
+    }
+
+    public String doOperation(String xs, String ys, String ops) {
+        String res;
         try {
-            return Optional.of(Integer.parseInt(s));
-        } catch (NumberFormatException e) {
-            return Optional.empty();
+            int x = toInt(xs);
+            int y = toInt(ys);
+            int r = doParse(x, y, ops);
+            res = String.valueOf(r);
+        } catch (NumberFormatException ex) {
+            res = "Number is in wrong format";
+        } catch (IllegalArgumentException ex) {
+            res = ex.getMessage();
+        } catch (ArithmeticException ex) {
+            res = "Division by zero caught";
+        } catch (Exception x) {
+            res = String.format("Smth went wrong %s", x.getMessage());
         }
+        return res;
     }
 
-    public int operate(String a,String b, String op) throws Exception {
+    private int doOpCore(int x, int y, BiFunction<Integer, Integer, Integer> f) {
+        return f.apply(x, y);
+    }
 
-        Integer aa= parse(a).orElseThrow(Exception::new);
-        Integer bb= parse(b).orElseThrow(Exception::new);
-
-        switch(op){
-            case "add": return aa+bb;
-            case "sub": return aa-bb;
-            case "mult": return aa*bb;
-            case "div": return division(aa,bb).orElseThrow(Exception::new);
-
+    public int doParse(int x, int y, String ops) {
+        switch (ops) {
+            case "add":
+                return doOpCore(x, y, (a, b) -> a + b);
+            case "sub":
+                return doOpCore(x, y, (a, b) -> a - b);
+            case "mul":
+                return doOpCore(x, y, (a, b) -> a * b);
+            case "div":
+                return doOpCore(x, y, (a, b) -> a / b);
+            default:
+                throw new IllegalArgumentException("Wrong Operation");
         }
-        return 0;
-    }
 
-    private Optional<Integer> division(int a, int b) {
-        if (b==0) return Optional.empty();
-        return Optional.of(a/b);
-    }
-
-    public String calculate(String a,String b,String op) throws Exception {
-        return String.format("%s %s %s = %d",a,op,b,operate(a,b,op));
     }
 }
