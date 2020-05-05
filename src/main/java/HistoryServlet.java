@@ -18,19 +18,14 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie[] cookies = req.getCookies();
-        if(cookies==null){
-            resp.sendRedirect("/calc/login");
-        }
 
-        else{
             for (Cookie cookie : cookies) {
-                if(cookie.getName().equals("Calc_cookie")){
                     try (PrintWriter writer = resp.getWriter()) {
                         List<Storage> storage = history.stream().filter(i -> i.username.equals(cookie.getValue())).collect(Collectors.toList());
                         storage.stream().forEach(i->writer.println(i.operation));
-                    }
+
                 }
-            }
+
         }
 
     }

@@ -20,13 +20,10 @@ public class CalculatorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookie=req.getCookies();
-        if(cookie==null){
-            resp.sendRedirect("/calc/login");
-        }
-        else { try (OutputStream os = resp.getOutputStream()) {
+
+         try (OutputStream os = resp.getOutputStream()) {
             Files.copy(Paths.get("content/calc.html"), os);
-        }}
+        }
     }
 
     @Override
