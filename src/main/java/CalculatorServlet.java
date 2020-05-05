@@ -8,13 +8,14 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class CalculatorServlet extends HttpServlet {
     Calculator calc=new Calculator();
-    Storage s;
+    List<Storage> history;
 
-    public CalculatorServlet(Storage s) {
-        this.s = s;
+    public CalculatorServlet(List<Storage> history) {
+        this.history = history;
     }
 
     @Override
@@ -36,10 +37,8 @@ public class CalculatorServlet extends HttpServlet {
         PrintWriter writer=resp.getWriter();
         writer.println(calc.doOperation(a,b,op));
         Cookie[] cookies = req.getCookies();
-        History history=new History(cookies[0].getValue());
         Operation oper=new Operation(a,b,op,calc.doOperation(a,b,op));
-        history.addOperation(oper);
-        s.saveHistory(cookies[0].getValue(),history);
+        history.add(new Storage(cookies[0].getValue(),oper));
 
 
 

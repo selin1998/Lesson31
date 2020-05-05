@@ -5,29 +5,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HistoryServlet extends HttpServlet {
-    Storage s;
-    public HistoryServlet(Storage storage) {
-        this.s=storage;
+    List<Storage> history;
+
+    public HistoryServlet(List<Storage> history) {
+        this.history=history;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cookie[] cookies = req.getCookies();
+        if(cookies==null){
+            resp.sendRedirect("/calc/login");
+        }
 
-
-        if(cookies!=null){
+        else{
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("Calc_cookie")){
                     try (PrintWriter writer = resp.getWriter()) {
-                        writer.println(s.getAllbyUser(cookie.getValue()).get());
+                        List<Storage> storage = history.stream().filter(i -> i.username.equals(cookie.getValue())).collect(Collectors.toList());
+                        storage.stream().forEach(i->writer.println(i.operation));
                     }
                 }
             }
-        }
-        else{
-            resp.sendRedirect("/calc/login");
         }
 
     }
