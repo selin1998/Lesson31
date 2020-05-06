@@ -1,4 +1,5 @@
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -22,6 +23,7 @@ public class ServerApp {
         servletContextHandler.addFilter(CookieFilter.class,"/calc/do",ft);
         servletContextHandler.addFilter(CookieFilter.class,"/calc/logout",ft);
         servletContextHandler.addFilter(CookieFilter.class,"/calc/history",ft);
+        servletContextHandler.addFilter(new FilterHolder(new AuthFilter(login)),"/calc/login",ft);
         server.setHandler(servletContextHandler);
         server.start();
         server.join();

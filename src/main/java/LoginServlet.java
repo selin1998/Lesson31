@@ -30,11 +30,11 @@ public class LoginServlet extends HttpServlet {
         String password=req.getParameter("password");
 
         try (PrintWriter writer = resp.getWriter()) {
+            login.put(name,password);
             writer.printf("%s logged in successfully",name);
             Cookie cookie=new Cookie("Calc_cookie",name);
             cookie.setPath("/calc");
             resp.addCookie(cookie);
-
 
         }
     }
