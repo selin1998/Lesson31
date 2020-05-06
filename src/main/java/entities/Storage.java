@@ -1,9 +1,10 @@
+package entities;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Storage {
-    String username;
-    Operation operation;
+    public String username;
+    public Operation operation;
 
     public Storage(String username, Operation operation) {
         this.username = username;
@@ -26,7 +27,7 @@ public class Storage {
 
     @Override
     public String toString() {
-        return "Storage{" +
+        return "entities.Storage{" +
                 "user=" + username +
                 ", operation=" + operation +
                 '}';

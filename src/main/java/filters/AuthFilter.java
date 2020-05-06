@@ -1,3 +1,5 @@
+package filters;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +34,12 @@ public class AuthFilter implements Filter {
                 String name = servletRequest.getParameter("username");
                 String password = servletRequest.getParameter("password");
 
-                if(!login.containsKey(name)||(login.get(name).equals(password))){
+                if((!isEmpty(name,password))&&(!login.containsKey(name)||(login.get(name).equals(password)))){
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
                 else{
                     PrintWriter writer= servletResponse.getWriter();
-                    writer.println("This username is already taken!");
+                    writer.println("This username is already taken or you did not entered credentials at all!");
                 }
 
             }

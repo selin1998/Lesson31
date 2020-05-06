@@ -1,3 +1,7 @@
+package servlets;
+
+import entities.Storage;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;

@@ -1,7 +1,14 @@
+import entities.Storage;
+import filters.AuthFilter;
+import filters.CookieFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import servlets.CalculatorServlet;
+import servlets.HistoryServlet;
+import servlets.LoginServlet;
+import servlets.LogoutServlet;
 
 import javax.servlet.DispatcherType;
 import java.util.ArrayList;

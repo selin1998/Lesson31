@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.function.BiFunction;
 
 public class Calculator {
@@ -40,7 +42,7 @@ public class Calculator {
             case "div":
                 return doOpCore(x, y, (a, b) -> a / b);
             default:
-                throw new IllegalArgumentException("Wrong Operation");
+                throw new IllegalArgumentException("Wrong entities.Operation");
         }
 
     }
