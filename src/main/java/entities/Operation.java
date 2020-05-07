@@ -15,6 +15,21 @@ public class Operation {
         this.result = result;
     }
 
+    public String getA() {
+        return a;
+    }
+
+    public String getB() {
+        return b;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public String getResult() {
+        return result;
+    }
 
     @Override
     public String toString() {

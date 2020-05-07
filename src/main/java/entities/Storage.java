@@ -27,7 +27,7 @@ public class Storage {
 
     @Override
     public String toString() {
-        return "entities.Storage{" +
+        return "Storage{" +
                 "user=" + username +
                 ", operation=" + operation +
                 '}';
